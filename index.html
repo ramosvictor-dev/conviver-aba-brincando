@@ -810,7 +810,7 @@ footer a{color:var(--coral-2)}
 var CHECKOUT_PRESENCIAL = "https://go.convivereaprender.com.br/pay/oferta-de-lancamento-presencial-curso-brincar-outubro-de-2026";
 var CHECKOUT_ONLINE = "https://go.convivereaprender.com.br/pay/oferta-de-lancamento-online-ao-vivo-curso-brincar-outubro-de-2026";
 var LEAD_WEBHOOK = "https://hook.us2.make.com/oltpq1uqwf4oo8a48867bngkrnt2vlp4"; // Make — Leads Checkout Pré Populado Curso Brincar
-var checkoutTarget="", checkoutValor=211.65, modalidadeSel="Presencial SP";
+var checkoutTarget="", checkoutValor=211.65, modalidadeSel="Presencial SP", formNameSel="Checkout Pré Populado Curso Brincar Presencial";
 function getCookie(n){var m=document.cookie.match('(^|;)\\s*'+n+'\\s*=\\s*([^;]+)');return m?m.pop():'';}
 
 /* ====== SELETOR INTERNACIONAL DE WHATSAPP (bandeira + DDI + máscara) ====== */
@@ -919,8 +919,8 @@ function openLead(){modal.classList.add('show');document.body.style.overflow='hi
 function closeLead(){modal.classList.remove('show');document.body.style.overflow='';}
 document.querySelectorAll('[data-lead]').forEach(function(b){b.addEventListener('click',function(){
   var plano=b.getAttribute('data-plano')||'presencial';
-  if(plano==='online'){checkoutTarget=CHECKOUT_ONLINE;checkoutValor=126.65;modalidadeSel='Online ao vivo';}
-  else{checkoutTarget=CHECKOUT_PRESENCIAL;checkoutValor=211.65;modalidadeSel='Presencial SP';}
+  if(plano==='online'){checkoutTarget=CHECKOUT_ONLINE;checkoutValor=126.65;modalidadeSel='Online ao vivo';formNameSel='Checkout Pré Populado Curso Brincar Online Ao Vivo';}
+  else{checkoutTarget=CHECKOUT_PRESENCIAL;checkoutValor=211.65;modalidadeSel='Presencial SP';formNameSel='Checkout Pré Populado Curso Brincar Presencial';}
   openLead();
 });});
 document.getElementById('modalX').addEventListener('click',closeLead);
@@ -953,7 +953,7 @@ function handleLead(form, onDone, goCheckout){
       var q=new URLSearchParams(location.search);
       var payload=Object.assign({},data,{
         evento:'lead', event_id:eid, curso:'ABA em Ação: Aprender Brincando',
-        valor:checkoutValor, moeda:'BRL', modalidade:modalidadeSel, pagina:location.href, enviado_em:new Date().toISOString(),
+        valor:checkoutValor, moeda:'BRL', modalidade:modalidadeSel, form_name:formNameSel, pagina:location.href, enviado_em:new Date().toISOString(),
         utm_source:q.get('utm_source')||'', utm_medium:q.get('utm_medium')||'',
         utm_campaign:q.get('utm_campaign')||'', utm_content:q.get('utm_content')||'', utm_term:q.get('utm_term')||'',
         fbp:getCookie('_fbp'), fbc:getCookie('_fbc')
